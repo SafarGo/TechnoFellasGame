@@ -6,7 +6,10 @@ public class CheckPaidCard : MonoBehaviour
     [SerializeField] private StepManager stepManager;
 
     [SerializeField] public AudioClip success_paid;
+    [SerializeField] public AudioClip success_paid_1;
     [SerializeField] public AudioClip wrong_paid;
+    [SerializeField] public AudioClip wrong_paid_1;
+    [SerializeField] public AudioClip wrong_paid_2;
     [SerializeField] public AudioSource source;
 
     [Header("Step")]
@@ -56,36 +59,58 @@ public class CheckPaidCard : MonoBehaviour
 
         bool success = Random.value <= successChance;
 
-
         if (success)
         {
             yield return new WaitForSeconds(failShowTime);
 
-            this.gameObject.GetComponent<Renderer>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
 
             isCompleted = true;
-            source.PlayOneShot(success_paid);
-            successObject.SetActive(true);
+
+            if (source != null)
+            {
+                if (success_paid != null)
+                    source.PlayOneShot(success_paid);
+
+                if (success_paid_1 != null)
+                    source.PlayOneShot(success_paid_1);
+            }
+
+            if (successObject != null)
+                successObject.SetActive(true);
 
             yield return new WaitForSeconds(failShowTime);
 
-            this.gameObject.GetComponent<Renderer>().enabled = true;
+            GetComponent<Renderer>().enabled = true;
 
             stepManager.CompleteStep(stepIndex);
         }
         else
         {
             yield return new WaitForSeconds(failShowTime);
-                
-            this.gameObject.GetComponent<Renderer>().enabled = false;
-        
-            source.PlayOneShot(wrong_paid);
-            failObject.SetActive(true);
+
+            GetComponent<Renderer>().enabled = false;
+
+            if (source != null)
+            {
+                if (wrong_paid != null)
+                    source.PlayOneShot(wrong_paid);
+
+                AudioClip randomWrongClip = Random.value < 0.5f ? wrong_paid_1 : wrong_paid_2;
+
+                if (randomWrongClip != null)
+                    source.PlayOneShot(randomWrongClip);
+            }
+
+            if (failObject != null)
+                failObject.SetActive(true);
 
             yield return new WaitForSeconds(failShowTime);
 
-            failObject.SetActive(false);
-            this.gameObject.GetComponent<Renderer>().enabled = true;
+            if (failObject != null)
+                failObject.SetActive(false);
+
+            GetComponent<Renderer>().enabled = true;
         }
 
         isProcessing = false;
