@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BusScene.unity
     guid: 70e7ba213fa3ffe45a6db581f2728160
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BankomatScene.unity
     guid: 0a4abe1cedb648849b73fd02cecca712
   m_configObjects:
