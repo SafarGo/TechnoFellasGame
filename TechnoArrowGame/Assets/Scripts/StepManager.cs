@@ -12,6 +12,10 @@ public class StepManager : MonoBehaviour
         [Header("Help Object / Подсказка")]
         public GameObject helpObject;
 
+        [Header("Audio / Озвучка")]
+        public AudioSource audioSource;
+        public AudioClip audioClip;
+
         [Header("Events")]
         public UnityEvent onStepStarted;
         public UnityEvent onStepCompleted;
@@ -66,6 +70,7 @@ public class StepManager : MonoBehaviour
             return;
         }
 
+        StopAllStepAudio();
         HideAllHelpObjects();
 
         currentStepIndex = stepIndex;
@@ -76,6 +81,7 @@ public class StepManager : MonoBehaviour
         step.onStepStarted?.Invoke();
 
         ShowCurrentHelp();
+        PlayStepAudio(step);
 
         Debug.Log($"Step {currentStepIndex} started");
     }
@@ -105,6 +111,7 @@ public class StepManager : MonoBehaviour
         Step step = steps[currentStepIndex];
 
         HideCurrentHelp();
+        StopCurrentStepAudio();
 
         step.onStepCompleted?.Invoke();
 
@@ -155,7 +162,10 @@ public class StepManager : MonoBehaviour
     public void RestartSteps()
     {
         scenarioCompleted = false;
+
+        StopAllStepAudio();
         HideAllHelpObjects();
+
         StartStep(0);
     }
 
@@ -164,10 +174,52 @@ public class StepManager : MonoBehaviour
         scenarioCompleted = true;
         currentStepIndex = -1;
 
+        StopAllStepAudio();
         HideAllHelpObjects();
 
         onScenarioCompleted?.Invoke();
 
         Debug.Log("Scenario completed");
+    }
+
+    private void PlayStepAudio(Step step)
+    {
+        if (step == null)
+            return;
+
+        if (step.audioSource == null)
+            return;
+
+        if (step.audioClip == null)
+            return;
+
+        step.audioSource.Stop();
+        step.audioSource.clip = step.audioClip;
+        step.audioSource.Play();
+
+        Debug.Log($"Step {currentStepIndex} audio started: {step.audioClip.name}");
+    }
+
+    private void StopCurrentStepAudio()
+    {
+        if (currentStepIndex < 0 || currentStepIndex >= steps.Length)
+            return;
+
+        Step step = steps[currentStepIndex];
+
+        if (step.audioSource != null)
+            step.audioSource.Stop();
+    }
+
+    private void StopAllStepAudio()
+    {
+        if (steps == null)
+            return;
+
+        foreach (Step step in steps)
+        {
+            if (step != null && step.audioSource != null)
+                step.audioSource.Stop();
+        }
     }
 }

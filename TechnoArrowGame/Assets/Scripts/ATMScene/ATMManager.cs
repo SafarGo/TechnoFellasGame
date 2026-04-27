@@ -3,97 +3,117 @@ using UnityEngine;
 
 public class ATMManager : MonoBehaviour
 {
+    private enum ATMState
+    {
+        WaitingForCard,
+        EnteringPin,
+        ChooseOperation,
+        ChooseSum,
+        TakeCash,
+        Thanks
+    }
+
     [Header("Screens")]
-    [SerializeField] private GameObject mainMenuScreen;
-    [SerializeField] private GameObject bringCardScreen;
-    [SerializeField] private GameObject pinScreen;
-    [SerializeField] private GameObject amountScreen;
-    [SerializeField] private GameObject cashReadyScreen;
+    [SerializeField] private GameObject screenMain;              // Приложите карту
+    [SerializeField] private GameObject screenPinCode;           // Введите ПИН
+    [SerializeField] private GameObject screenChooseOperation;   // Выберите операцию
+    [SerializeField] private GameObject screenChooseSum;         // Выберите сумму
+    [SerializeField] private GameObject screenPutMoney;          // Заберите деньги
+    [SerializeField] private GameObject screenThanks;            // Спасибо
 
     [Header("PIN")]
-    [SerializeField] private string correctPin = "6752";
+    [SerializeField] private string correctPin = "5269";
     [SerializeField] private TMP_Text pinText;
 
     [Header("Cash")]
     [SerializeField] private GameObject cashObject;
 
-    [Header("Optional Step Manager")]
+    [Header("Optional StepManager")]
     [SerializeField] private StepManager stepManager;
     [SerializeField] private int completeStepIndex = -1;
 
+    [Header("Debug")]
+    [SerializeField] private bool keyboardDebug = true;
+
+    private ATMState currentState;
     private string currentPin = "";
-    private bool isWaitingForCard = false;
-    private bool isEnteringPin = false;
 
     private void Start()
     {
-        HideAllScreens();
-        cashObject.SetActive(false);
-        ShowMainMenu();
-    }
+        if (cashObject != null)
+            cashObject.SetActive(false);
 
+        ShowMainScreen();
+    }
     private void HideAllScreens()
     {
-        mainMenuScreen.SetActive(false);
-        bringCardScreen.SetActive(false);
-        pinScreen.SetActive(false);
-        amountScreen.SetActive(false);
-        cashReadyScreen.SetActive(false);
+        if (screenMain != null) screenMain.SetActive(false);
+        if (screenPinCode != null) screenPinCode.SetActive(false);
+        if (screenChooseOperation != null) screenChooseOperation.SetActive(false);
+        if (screenChooseSum != null) screenChooseSum.SetActive(false);
+        if (screenPutMoney != null) screenPutMoney.SetActive(false);
+        if (screenThanks != null) screenThanks.SetActive(false);
     }
 
-    public void ShowMainMenu()
+    public void ShowMainScreen()
     {
         HideAllScreens();
 
-        isWaitingForCard = false;
-        isEnteringPin = false;
+        currentState = ATMState.WaitingForCard;
         currentPin = "";
         UpdatePinText();
 
-        if (mainMenuScreen != null)
-            mainMenuScreen.SetActive(true);
-    }
+        if (cashObject != null)
+            cashObject.SetActive(false);
 
-    public void StartWithdrawCash()
-    {
-        HideAllScreens();
+        if (screenMain != null)
+            screenMain.SetActive(true);
 
-        isWaitingForCard = true;
-        isEnteringPin = false;
-        currentPin = "";
-        UpdatePinText();
-
-        if (bringCardScreen != null)
-            bringCardScreen.SetActive(true);
-
-        Debug.Log("ATM: Поднесите карту");
+        Debug.Log("ATM: waiting for card");
     }
 
     public void OnCardPresented()
     {
-        if (!isWaitingForCard)
-            return;
+        Debug.Log($"ATM: OnCardPresented called. State = {currentState}");
 
+        if (currentState != ATMState.WaitingForCard)
+        {
+            Debug.Log("ATM: card ignored, ATM is not waiting for card");
+            return;
+        }
+
+        ShowPinScreen();
+    }
+
+    private void ShowPinScreen()
+    {
         HideAllScreens();
 
-        isWaitingForCard = false;
-        isEnteringPin = true;
+        currentState = ATMState.EnteringPin;
         currentPin = "";
         UpdatePinText();
 
-        if (pinScreen != null)
-            pinScreen.SetActive(true);
+        if (screenPinCode != null)
+            screenPinCode.SetActive(true);
 
-        Debug.Log("ATM: Введите ПИН-код");
+        Debug.Log("ATM: enter PIN");
     }
 
     public void PressDigit(int digit)
     {
-        if (!isEnteringPin)
+        Debug.Log($"ATM: PressDigit({digit}) called. State = {currentState}, CurrentPin = {currentPin}");
+
+        if (currentState != ATMState.EnteringPin)
+        {
+            Debug.Log("ATM: digit ignored, not in EnteringPin state");
             return;
+        }
 
         if (currentPin.Length >= 4)
+        {
+            Debug.Log("ATM: PIN already has 4 digits");
             return;
+        }
 
         currentPin += digit.ToString();
         UpdatePinText();
@@ -103,77 +123,137 @@ public class ATMManager : MonoBehaviour
 
     public void ClearPin()
     {
-        if (!isEnteringPin)
+        Debug.Log($"ATM: ClearPin called. State = {currentState}");
+
+        if (currentState != ATMState.EnteringPin)
             return;
 
         currentPin = "";
         UpdatePinText();
+
+        Debug.Log("ATM: PIN cleared");
     }
 
     public void SubmitPin()
     {
-        if (!isEnteringPin)
+        Debug.Log($"ATM: SubmitPin called. State = {currentState}, CurrentPin = {currentPin}");
+
+        if (currentState != ATMState.EnteringPin)
+        {
+            Debug.Log("ATM: submit ignored, not in EnteringPin state");
             return;
+        }
 
         if (currentPin == correctPin)
         {
-            ShowAmountScreen();
+            Debug.Log("ATM: PIN correct");
+            ShowChooseOperationScreen();
         }
         else
         {
-            Debug.Log("ATM: Неверный ПИН");
+            Debug.Log("ATM: wrong PIN, try again");
 
             currentPin = "";
             UpdatePinText();
+
+            // Важно: остаёмся на этом же экране и в этом же состоянии
+            currentState = ATMState.EnteringPin;
+
+            if (screenPinCode != null && !screenPinCode.activeSelf)
+                screenPinCode.SetActive(true);
         }
     }
 
-    private void ShowAmountScreen()
+    private void ShowChooseOperationScreen()
     {
         HideAllScreens();
 
-        isEnteringPin = false;
+        currentState = ATMState.ChooseOperation;
 
-        if (amountScreen != null)
-            amountScreen.SetActive(true);
+        if (screenChooseOperation != null)
+            screenChooseOperation.SetActive(true);
 
-        Debug.Log("ATM: Выберите сумму");
+        Debug.Log("ATM: choose operation");
     }
 
-    public void SelectAmount(int amount)
+    public void OnWithdrawCashClicked()
     {
-        if (amount != 5000)
+        Debug.Log($"ATM: OnWithdrawCashClicked called. State = {currentState}");
+
+        if (currentState != ATMState.ChooseOperation)
         {
-            Debug.Log("ATM: Эта сумма сейчас недоступна");
+            Debug.Log("ATM: withdraw ignored, not in ChooseOperation state");
             return;
         }
 
-        GiveCash();
-    }
-
-    private void GiveCash()
-    {
         HideAllScreens();
 
-        if (cashObject != null)
-            cashObject.SetActive(true);
+        currentState = ATMState.ChooseSum;
 
-        if (cashReadyScreen != null)
-            cashReadyScreen.SetActive(true);
+        if (screenChooseSum != null)
+            screenChooseSum.SetActive(true);
 
-        Debug.Log("ATM: Заберите деньги");
+        Debug.Log("ATM: choose sum");
     }
 
-    public void ExitTerminal()
+    public void OnAmount100Clicked()
     {
-        ShowMainMenu();
+        Debug.Log("ATM: amount 100 is disabled");
+    }
 
-        Debug.Log("ATM: Выход из терминала");
+    public void OnAmount500Clicked()
+    {
+        Debug.Log("ATM: amount 500 is disabled");
+    }
+
+    public void OnAmount1000Clicked()
+    {
+        Debug.Log("ATM: amount 1000 is disabled");
+    }
+
+    public void OnAmount5000Clicked()
+    {
+        Debug.Log($"ATM: OnAmount5000Clicked called. State = {currentState}");
+
+        if (currentState != ATMState.ChooseSum)
+        {
+            Debug.Log("ATM: amount ignored, not in ChooseSum state");
+            return;
+        }
+
+        HideAllScreens();
+
+        currentState = ATMState.TakeCash;
+
+       cashObject.SetActive(true);
+
+        if (screenPutMoney != null)
+            screenPutMoney.SetActive(true);
+
+        Debug.Log("ATM: take cash");
+    }
+
+    public void OnCashGrabbed()
+    {
+        Debug.Log($"ATM: OnCashGrabbed called. State = {currentState}");
+
+        if (currentState != ATMState.TakeCash)
+        {
+            Debug.Log("ATM: cash grab ignored, not in TakeCash state");
+            return;
+        }
+
+        HideAllScreens();
+
+        currentState = ATMState.Thanks;
+
+        if (screenThanks != null)
+            screenThanks.SetActive(true);
+
+        Debug.Log("ATM: thanks");
 
         if (stepManager != null && completeStepIndex >= 0)
-        {
             stepManager.CompleteStep(completeStepIndex);
-        }
     }
 
     private void UpdatePinText()
