@@ -30,7 +30,6 @@ public class UniversalWatchUIManager : MonoBehaviour
 
         bool shouldShow = angle > showAngle && angle <110;
 
-        Debug.Log($"{angle}");
 
         if (shouldShow)
             targetScale = visibleScale;
