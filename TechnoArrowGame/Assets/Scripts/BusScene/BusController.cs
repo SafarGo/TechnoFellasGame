@@ -22,6 +22,11 @@ public class BusController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        BusSpawner.instance.Spawn();
+    }
+
     IEnumerator BusStopped()
     {
         yield return new WaitForSeconds(stopDelay);
