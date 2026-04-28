@@ -6,6 +6,9 @@ public class ATMDigitButton : MonoBehaviour
     [SerializeField] private ATMManager atmManager;
     [SerializeField] private int digit;
 
+    public AudioSource source;
+    public AudioClip clip;
+
     [Header("Press Animation")]
     [SerializeField] private float pressOffsetY = -0.01f;
     [SerializeField] private float pressDuration = 0.3f;
@@ -24,6 +27,8 @@ public class ATMDigitButton : MonoBehaviour
             atmManager.PressDigit(digit);
 
         PlayPressAnimation();
+
+        source.PlayOneShot(clip);
     }
 
     private void PlayPressAnimation()
