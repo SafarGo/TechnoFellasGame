@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class CheckBasketOnBelt : MonoBehaviour
 {
@@ -11,8 +13,8 @@ public class CheckBasketOnBelt : MonoBehaviour
     [SerializeField] private string basketTag = "Basket";
     [SerializeField] private Transform basketSnapPoint;
 
-    [Header("Objects")]
-    [SerializeField] private GameObject bagObject;
+    [Header("Bag")]
+    [SerializeField] private ShopBagLock bagLock;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -23,15 +25,12 @@ public class CheckBasketOnBelt : MonoBehaviour
     [SerializeField] private float delayBeforeScanning = 0.5f;
     [SerializeField] private float delayBeforeBagAppears = 1.5f;
 
-    [Header("Settings")]
-    [SerializeField] private bool freezeBasketAfterPlaced = true;
-
     private bool basketPlaced = false;
 
     private void Start()
     {
-        if (bagObject != null)
-            bagObject.SetActive(false);
+        if (bagLock != null)
+            bagLock.HideBag();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +38,9 @@ public class CheckBasketOnBelt : MonoBehaviour
         if (basketPlaced)
             return;
 
-        if (!other.CompareTag(basketTag))
+        GameObject basket = GetBasketObject(other);
+
+        if (basket == null)
             return;
 
         if (stepManager != null && stepIndex >= 0 && !stepManager.IsCurrentStep(stepIndex))
@@ -47,28 +48,54 @@ public class CheckBasketOnBelt : MonoBehaviour
 
         basketPlaced = true;
 
-        GameObject basket = other.gameObject;
-
         SnapBasket(basket);
 
         StartCoroutine(BasketRoutine());
     }
 
+    private GameObject GetBasketObject(Collider other)
+    {
+        if (other.CompareTag(basketTag))
+            return other.gameObject;
+
+        if (other.transform.root.CompareTag(basketTag))
+            return other.transform.root.gameObject;
+
+        return null;
+    }
+
     private void SnapBasket(GameObject basket)
     {
-        if (basketSnapPoint != null)
+        XRGrabInteractable grabInteractable = basket.GetComponent<XRGrabInteractable>();
+
+        if (grabInteractable != null)
         {
-            basket.transform.position = basketSnapPoint.position;
-            basket.transform.rotation = basketSnapPoint.rotation;
+            grabInteractable.enabled = false;
         }
 
         Rigidbody rb = basket.GetComponent<Rigidbody>();
 
-        if (rb != null && freezeBasketAfterPlaced)
+        if (rb != null)
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
+            rb.useGravity = false;
+        }
+
+        if (basketSnapPoint != null)
+        {
+            basket.transform.SetPositionAndRotation(
+                basketSnapPoint.position,
+                basketSnapPoint.rotation
+            );
+        }
+
+        Collider[] colliders = basket.GetComponentsInChildren<Collider>();
+
+        foreach (Collider col in colliders)
+        {
+            col.isTrigger = false;
         }
     }
 
@@ -84,8 +111,8 @@ public class CheckBasketOnBelt : MonoBehaviour
 
         yield return new WaitForSeconds(delayBeforeBagAppears);
 
-        if (bagObject != null)
-            bagObject.SetActive(true);
+        if (bagLock != null)
+            bagLock.ShowBagLocked();
 
         if (stepManager != null && stepIndex >= 0)
             stepManager.CompleteStep(stepIndex);
