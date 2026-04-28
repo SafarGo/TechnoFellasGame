@@ -9,30 +9,26 @@ public class CheckMoneyPayment : MonoBehaviour
     [Header("Money")]
     [SerializeField] private string moneyTag = "Money";
 
+    [Header("Bag")]
+    [SerializeField] private ShopBagLock bagLock;
+
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip moneyAcceptedClip;
-
-    [Header("Objects")]
-    [SerializeField] private GameObject moneyAcceptedObject;
 
     [Header("Settings")]
     [SerializeField] private bool hideMoneyAfterPayment = true;
 
     private bool paid = false;
 
-    private void Start()
-    {
-        if (moneyAcceptedObject != null)
-            moneyAcceptedObject.SetActive(false);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (paid)
             return;
 
-        if (!other.CompareTag(moneyTag))
+        GameObject money = GetMoneyObject(other);
+
+        if (money == null)
             return;
 
         if (stepManager != null && stepIndex >= 0 && !stepManager.IsCurrentStep(stepIndex))
@@ -43,13 +39,26 @@ public class CheckMoneyPayment : MonoBehaviour
         if (audioSource != null && moneyAcceptedClip != null)
             audioSource.PlayOneShot(moneyAcceptedClip);
 
-        if (moneyAcceptedObject != null)
-            moneyAcceptedObject.SetActive(true);
-
         if (hideMoneyAfterPayment)
-            other.gameObject.SetActive(false);
+            money.SetActive(false);
+
+        if (bagLock != null)
+            bagLock.UnlockBag();
+
+        Debug.Log("CheckMoneyPayment: money accepted");
 
         if (stepManager != null && stepIndex >= 0)
             stepManager.CompleteStep(stepIndex);
+    }
+
+    private GameObject GetMoneyObject(Collider other)
+    {
+        if (other.CompareTag(moneyTag))
+            return other.gameObject;
+
+        if (other.transform.root.CompareTag(moneyTag))
+            return other.transform.root.gameObject;
+
+        return null;
     }
 }

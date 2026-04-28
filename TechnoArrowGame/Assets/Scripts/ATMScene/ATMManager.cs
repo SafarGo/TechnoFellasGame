@@ -87,6 +87,8 @@ public class ATMManager : MonoBehaviour
         }
 
         ShowPinScreen();
+
+        stepManager.CompleteStep(0);
     }
 
     private void ShowPinScreen()
@@ -152,6 +154,7 @@ public class ATMManager : MonoBehaviour
         {
             Debug.Log("ATM: PIN correct");
             ShowChooseOperationScreen();
+            stepManager.CompleteStep(1);
         }
         else
         {
@@ -198,21 +201,8 @@ public class ATMManager : MonoBehaviour
             screenChooseSum.SetActive(true);
 
         Debug.Log("ATM: choose sum");
-    }
 
-    public void OnAmount100Clicked()
-    {
-        Debug.Log("ATM: amount 100 is disabled");
-    }
-
-    public void OnAmount500Clicked()
-    {
-        Debug.Log("ATM: amount 500 is disabled");
-    }
-
-    public void OnAmount1000Clicked()
-    {
-        Debug.Log("ATM: amount 1000 is disabled");
+        stepManager.CompleteStep(2);
     }
 
     public void OnAmount5000Clicked()
@@ -226,6 +216,8 @@ public class ATMManager : MonoBehaviour
         }
 
         StartCoroutine(Amount5000Routine());
+
+        stepManager.CompleteStep(3);
     }
 
     private IEnumerator Amount5000Routine()
@@ -257,6 +249,11 @@ public class ATMManager : MonoBehaviour
             return;
         }
 
+        StartCoroutine(CashGrabbedRoutine());
+    }
+
+    private IEnumerator CashGrabbedRoutine()
+    {
         HideAllScreens();
 
         currentState = ATMState.Thanks;
@@ -266,8 +263,10 @@ public class ATMManager : MonoBehaviour
 
         Debug.Log("ATM: thanks");
 
-        if (stepManager != null && completeStepIndex >= 0)
-            stepManager.CompleteStep(completeStepIndex);
+        yield return new WaitForSeconds(6f);
+
+        if (stepManager != null)
+            stepManager.CompleteStep(4);
     }
 
     private void UpdatePinText()
