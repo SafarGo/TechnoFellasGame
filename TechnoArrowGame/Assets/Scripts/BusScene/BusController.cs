@@ -8,6 +8,7 @@ public class BusController : MonoBehaviour
     [SerializeField] private float stopDelay = 3;
     private bool isStopped = false;
     private bool isFirstStop = true;
+    private bool isPlayerInseide = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,10 +26,12 @@ public class BusController : MonoBehaviour
         anim.SetBool("IsDriving", false);
 
         yield return new WaitForSeconds(stopDelay);
-
-        speed = 10;
-        anim.SetBool("IsDriving", true);
-        isStopped = false;
+        if (!isPlayerInseide)
+        {
+            speed = 10;
+            anim.SetBool("IsDriving", true);
+            isStopped = false;
+        }
     }
 
     void Update()
@@ -43,4 +46,16 @@ public class BusController : MonoBehaviour
     {
         BusSpawner.instance.BusDestroyed();
     }
+
+    public void SetPlayerInside()
+    {
+        isPlayerInseide = true;
+    }
+
+    public void SetPlayerOutnside()
+    {
+        isPlayerInseide = false;
+        speed = 10f;
+    }
+
 }
