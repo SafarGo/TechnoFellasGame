@@ -24,7 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/ShopScene.unity
     guid: 73561bdcf51f1ab46998b6dc5beadb09
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d98575d554d862349beee3eb9f20ea3d, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: a839adea3ca177d4e8c8ffbf74dc7348, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5f6280db04f0cbc49aae932cda332312, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: fc733862e841b854e892afae641759bb, type: 2}
   m_UseUCBPForAssetBundles: 0
