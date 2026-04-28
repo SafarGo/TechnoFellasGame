@@ -4,33 +4,58 @@ using UnityEngine;
 public class BusController : MonoBehaviour
 {
     public Animator anim;
-    [SerializeField] private float speed;
-    [SerializeField] private float stopDelay;
-    private bool _isFirstTime = true;
+    [SerializeField] private float speed = 10;
+    [SerializeField] private float stopDelay = 3;
+    private bool isStopped = false;
+    private bool isFirstStop = true;
+    private bool isPlayerInseide = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("BusStation"))
+        if (other.CompareTag("BusStation") && isFirstStop)
         {
-            if (_isFirstTime)
-            {
-                speed = 0;
-                anim.SetBool("IsDriving", false);
-                StartCoroutine(BusStopped());
-                _isFirstTime = false;
-            }
+            StartCoroutine(StopAtStation());
+            isFirstStop = false;
         }
     }
 
-    IEnumerator BusStopped()
+    IEnumerator StopAtStation()
     {
+        isStopped = true;
+        speed = 0;
+        anim.SetBool("IsDriving", false);
+
         yield return new WaitForSeconds(stopDelay);
-        speed = 3;
-        anim.SetBool("IsDriving", true);
+        if (!isPlayerInseide)
+        {
+            speed = 10;
+            anim.SetBool("IsDriving", true);
+            isStopped = false;
+        }
     }
 
-    public void Update()
+    void Update()
     {
-        transform.position += new Vector3(-speed * 0.01f, 0,0);
+        if (!isStopped)
+        {
+            transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
+        }
     }
+
+    private void OnDestroy()
+    {
+        BusSpawner.instance.BusDestroyed();
+    }
+
+    public void SetPlayerInside()
+    {
+        isPlayerInseide = true;
+    }
+
+    public void SetPlayerOutnside()
+    {
+        isPlayerInseide = false;
+        speed = 10f;
+    }
+
 }
