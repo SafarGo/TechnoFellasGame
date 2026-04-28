@@ -6,10 +6,10 @@ PhysicsMaterial:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ball
+  m_Name: Floor
   serializedVersion: 2
   m_DynamicFriction: 0.55
   m_StaticFriction: 0.65
-  m_Bounciness: 0.78
+  m_Bounciness: 0.25
   m_FrictionCombine: 0
-  m_BounceCombine: 3
+  m_BounceCombine: 0

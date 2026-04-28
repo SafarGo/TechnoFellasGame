@@ -12,6 +12,8 @@ TagManager:
   - Door
   - BusStation
   - Bus
+  - HoopSound
+  - Basketball
   layers:
   - Default
   - TransparentFX
