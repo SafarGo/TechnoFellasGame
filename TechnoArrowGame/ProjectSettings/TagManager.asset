@@ -9,6 +9,7 @@ TagManager:
   - Ball
   - Money
   - Basket
+  - Door
   layers:
   - Default
   - TransparentFX
