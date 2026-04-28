@@ -12,6 +12,9 @@ TagManager:
   - Door
   - BusStation
   - Bus
+  - 42
+  - 52
+  - 67
   layers:
   - Default
   - TransparentFX

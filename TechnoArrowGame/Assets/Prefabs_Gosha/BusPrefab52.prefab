@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 3166574445240714748}
   m_Layer: 0
   m_Name: terminal_b
-  m_TagString: Untagged
+  m_TagString: 52
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -513,9 +513,10 @@ MonoBehaviour:
   wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
   wrong_paid_1: {fileID: 8300000, guid: 38b298f48b4d5fe4c896e4bc236fbe06, type: 3}
   wrong_paid_2: {fileID: 8300000, guid: 5ce9569d6fb030f429945aae81c0e5e2, type: 3}
+  wrong_bus: {fileID: 8300000, guid: 95be6568e7f77c64484fe142aa1ad16f, type: 3}
   source: {fileID: 7431479449568600061}
   stepIndex: 2
-  successChance: 0.336
+  successChance: 1
   successObject: {fileID: 6433661177643358839}
   failObject: {fileID: 9199608480153653441}
   failShowTime: 1.5
@@ -802,7 +803,7 @@ GameObject:
   - component: {fileID: 214350439527697821}
   m_Layer: 0
   m_Name: terminal_b
-  m_TagString: Untagged
+  m_TagString: 52
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -914,9 +915,10 @@ MonoBehaviour:
   wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
   wrong_paid_1: {fileID: 8300000, guid: 38b298f48b4d5fe4c896e4bc236fbe06, type: 3}
   wrong_paid_2: {fileID: 8300000, guid: 5ce9569d6fb030f429945aae81c0e5e2, type: 3}
+  wrong_bus: {fileID: 8300000, guid: 95be6568e7f77c64484fe142aa1ad16f, type: 3}
   source: {fileID: 8809665897907964250}
   stepIndex: 2
-  successChance: 0.336
+  successChance: 1
   successObject: {fileID: 99098631753236742}
   failObject: {fileID: 3511549860256845553}
   failShowTime: 1.5
@@ -1785,7 +1787,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc8b47f8c50c014da8f8a5123a08216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4424645576590876740}
+  wheelAnimators:
+  - {fileID: 4424645576590876740}
+  - {fileID: 1785860561096760538}
+  - {fileID: 1167083411926144583}
+  - {fileID: 5556568986535275942}
   speed: 10
   stopDelay: 5
 --- !u!65 &9034650343665678492
@@ -1987,7 +1993,7 @@ GameObject:
   - component: {fileID: 8424650528236863126}
   m_Layer: 0
   m_Name: terminal_b
-  m_TagString: Untagged
+  m_TagString: 52
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2099,9 +2105,10 @@ MonoBehaviour:
   wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
   wrong_paid_1: {fileID: 8300000, guid: 38b298f48b4d5fe4c896e4bc236fbe06, type: 3}
   wrong_paid_2: {fileID: 8300000, guid: 5ce9569d6fb030f429945aae81c0e5e2, type: 3}
+  wrong_bus: {fileID: 8300000, guid: 95be6568e7f77c64484fe142aa1ad16f, type: 3}
   source: {fileID: 9005441046002557184}
   stepIndex: 2
-  successChance: 0.336
+  successChance: 1
   successObject: {fileID: 6847085051736050770}
   failObject: {fileID: 1614821786640833453}
   failShowTime: 1.5
@@ -3162,7 +3169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1945853439405968793, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247255022592102481, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_LocalScale.z
@@ -4410,7 +4417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9099047225471837120, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_LocalScale.z
@@ -4460,40 +4467,13 @@ PrefabInstance:
     - {fileID: 6251422020236197525, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2362167920863470244}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
 --- !u!1 &99098631753236742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
   m_PrefabInstance: {fileID: 2171435448419886921}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2362167920863470244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99098631753236742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c66a492d6a7c6304ca4048e050360ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepManager: {fileID: 0}
-  success_paid: {fileID: 8300000, guid: 5f63f85d12c7cd2418ea087130e9eb7d, type: 3}
-  success_paid_1: {fileID: 0}
-  wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
-  wrong_paid_1: {fileID: 0}
-  wrong_paid_2: {fileID: 0}
-  source: {fileID: 0}
-  stepIndex: 2
-  successChance: 0.7
-  successObject: {fileID: 0}
-  failObject: {fileID: 0}
-  failShowTime: 1
 --- !u!4 &6945731738173867145 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9099047225471837120, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
@@ -5681,7 +5661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1945853439405968793, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247255022592102481, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_LocalScale.z
@@ -6345,7 +6325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9099047225471837120, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_LocalScale.z
@@ -6395,10 +6375,7 @@ PrefabInstance:
     - {fileID: 6251422020236197525, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5092325235098053116}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
 --- !u!4 &4468019477132265949 stripped
 Transform:
@@ -6410,30 +6387,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
   m_PrefabInstance: {fileID: 4631907362582456861}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5092325235098053116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6847085051736050770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c66a492d6a7c6304ca4048e050360ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepManager: {fileID: 0}
-  success_paid: {fileID: 8300000, guid: 5f63f85d12c7cd2418ea087130e9eb7d, type: 3}
-  success_paid_1: {fileID: 0}
-  wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
-  wrong_paid_1: {fileID: 0}
-  wrong_paid_2: {fileID: 0}
-  source: {fileID: 0}
-  stepIndex: 2
-  successChance: 0.7
-  successObject: {fileID: 0}
-  failObject: {fileID: 0}
-  failShowTime: 1
 --- !u!1001 &4767181213269225278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7036,7 +6989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9099047225471837120, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
       propertyPath: m_LocalScale.z
@@ -7086,10 +7039,7 @@ PrefabInstance:
     - {fileID: 6251422020236197525, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6551884010337240372}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
 --- !u!4 &4056854137357524984 stripped
 Transform:
@@ -7101,30 +7051,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2252482228902897231, guid: 12529eea5fc9d8f429cbe8886525c53f, type: 3}
   m_PrefabInstance: {fileID: 5047013896913976376}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6551884010337240372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6433661177643358839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c66a492d6a7c6304ca4048e050360ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepManager: {fileID: 0}
-  success_paid: {fileID: 8300000, guid: 5f63f85d12c7cd2418ea087130e9eb7d, type: 3}
-  success_paid_1: {fileID: 0}
-  wrong_paid: {fileID: 8300000, guid: 493e2ac629792a4459cb131807bf67b4, type: 3}
-  wrong_paid_1: {fileID: 0}
-  wrong_paid_2: {fileID: 0}
-  source: {fileID: 0}
-  stepIndex: 2
-  successChance: 0.7
-  successObject: {fileID: 0}
-  failObject: {fileID: 0}
-  failShowTime: 1
 --- !u!1001 &7253782013167607128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7139,7 +7065,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1945853439405968793, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247255022592102481, guid: 72a4b9999c8899b47bc77a60de116680, type: 3}
       propertyPath: m_LocalScale.z

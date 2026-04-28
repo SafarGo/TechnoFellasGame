@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BusController : MonoBehaviour
 {
-    public Animator anim;
+    [SerializeField] private Animator[] wheelAnimators;
     [SerializeField] private float speed = 10;
     [SerializeField] private float stopDelay = 3;
     private bool isStopped = false;
@@ -23,13 +23,19 @@ public class BusController : MonoBehaviour
     {
         isStopped = true;
         speed = 0;
-        anim.SetBool("IsDriving", false);
+        foreach (var wheel in wheelAnimators)
+        {
+            wheel.SetBool("IsDriving", false);
+        }
 
         yield return new WaitForSeconds(stopDelay);
         if (!isPlayerInseide)
         {
             speed = 10;
-            anim.SetBool("IsDriving", true);
+            foreach (var wheel in wheelAnimators)
+            {
+                wheel.SetBool("IsDriving", true);
+            }
             isStopped = false;
         }
     }
@@ -56,5 +62,6 @@ public class BusController : MonoBehaviour
     {
         isPlayerInseide = false;
         speed = 10f;
+        isStopped = false;
     }
 }

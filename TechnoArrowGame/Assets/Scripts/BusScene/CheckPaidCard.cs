@@ -10,6 +10,7 @@ public class CheckPaidCard : MonoBehaviour
     [SerializeField] public AudioClip wrong_paid;
     [SerializeField] public AudioClip wrong_paid_1;
     [SerializeField] public AudioClip wrong_paid_2;
+    [SerializeField] public AudioClip wrong_bus;
     [SerializeField] public AudioSource source;
 
     [Header("Step")]
@@ -30,12 +31,11 @@ public class CheckPaidCard : MonoBehaviour
     private void Start()
     {
         if (successObject != null)
-            successObject.SetActive(false);
-
+            successObject.GetComponent<Renderer>().enabled = false;
         if (failObject != null)
-            failObject.SetActive(false);
+            failObject.GetComponent<Renderer>().enabled = false;
+        stepManager = GameObject.Find("StepManager").GetComponent<StepManager>();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (isCompleted)
@@ -45,9 +45,6 @@ public class CheckPaidCard : MonoBehaviour
             return;
 
         if (!other.CompareTag("Card"))
-            return;
-
-        if (stepManager != null && !stepManager.IsCurrentStep(stepIndex))
             return;
 
         StartCoroutine(TryPay());
@@ -61,56 +58,43 @@ public class CheckPaidCard : MonoBehaviour
 
         if (success)
         {
-            yield return new WaitForSeconds(failShowTime);
-
-            GetComponent<Renderer>().enabled = false;
-
-            isCompleted = true;
-
-            if (source != null)
+            if (this.gameObject.tag == "67")
             {
-                if (success_paid != null)
-                    source.PlayOneShot(success_paid);
+                isCompleted = true;
+                source.PlayOneShot(success_paid);
+                source.PlayOneShot(success_paid_1);
 
-                if (success_paid_1 != null)
-                    source.PlayOneShot(success_paid_1);
+                successObject.GetComponent<Renderer>().enabled = true;
+
+                yield return new WaitForSeconds(failShowTime);
+
+                successObject.GetComponent<Renderer>().enabled = false;
+
+                stepManager.CompleteStep(stepIndex);
             }
+            else
+            {
+                isCompleted = true;
+                source.PlayOneShot(success_paid);
 
-            if (successObject != null)
-                successObject.SetActive(true);
+                successObject.GetComponent<Renderer>().enabled = true;
 
-            yield return new WaitForSeconds(failShowTime);
+                source.PlayOneShot(wrong_bus);
 
-            GetComponent<Renderer>().enabled = true;
+                yield return new WaitForSeconds(failShowTime);
 
-            stepManager.CompleteStep(stepIndex);
+                successObject.GetComponent<Renderer>().enabled = false;
+
+            }
         }
         else
         {
+            source.PlayOneShot(wrong_paid);
+            AudioClip randomWrongClip = Random.value < 0.5f ? wrong_paid_1 : wrong_paid_2;
+            source.PlayOneShot(randomWrongClip);
+            failObject.GetComponent<Renderer>().enabled = true;
             yield return new WaitForSeconds(failShowTime);
-
-            GetComponent<Renderer>().enabled = false;
-
-            if (source != null)
-            {
-                if (wrong_paid != null)
-                    source.PlayOneShot(wrong_paid);
-
-                AudioClip randomWrongClip = Random.value < 0.5f ? wrong_paid_1 : wrong_paid_2;
-
-                if (randomWrongClip != null)
-                    source.PlayOneShot(randomWrongClip);
-            }
-
-            if (failObject != null)
-                failObject.SetActive(true);
-
-            yield return new WaitForSeconds(failShowTime);
-
-            if (failObject != null)
-                failObject.SetActive(false);
-
-            GetComponent<Renderer>().enabled = true;
+            failObject.GetComponent<Renderer>().enabled = false;
         }
 
         isProcessing = false;
