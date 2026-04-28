@@ -57,5 +57,4 @@ public class BusController : MonoBehaviour
         isPlayerInseide = false;
         speed = 10f;
     }
-
 }
