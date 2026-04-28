@@ -10,6 +10,7 @@ TagManager:
   - Money
   - Basket
   - Door
+  - BusStation
   layers:
   - Default
   - TransparentFX

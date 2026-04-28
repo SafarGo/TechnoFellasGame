@@ -9843,6 +9843,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2795896932753922616, guid: aeee804a231b84d45ac014d334398f71, type: 3}
+      propertyPath: m_Height
+      value: 0.61
+      objectReference: {fileID: 0}
     - target: {fileID: 5112099032440106218, guid: aeee804a231b84d45ac014d334398f71, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) (1)
