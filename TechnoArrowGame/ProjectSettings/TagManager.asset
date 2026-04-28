@@ -11,6 +11,7 @@ TagManager:
   - Basket
   - Door
   - BusStation
+  - Bus
   layers:
   - Default
   - TransparentFX

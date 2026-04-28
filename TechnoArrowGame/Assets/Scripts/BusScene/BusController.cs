@@ -4,38 +4,43 @@ using UnityEngine;
 public class BusController : MonoBehaviour
 {
     public Animator anim;
-    [SerializeField] private float speed;
-    [SerializeField] private float stopDelay;
-    private bool _isFirstTime = true;
+    [SerializeField] private float speed = 10;
+    [SerializeField] private float stopDelay = 3;
+    private bool isStopped = false;
+    private bool isFirstStop = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("BusStation"))
+        if (other.CompareTag("BusStation") && isFirstStop)
         {
-            if (_isFirstTime)
-            {
-                speed = 0;
-                anim.SetBool("IsDriving", false);
-                StartCoroutine(BusStopped());
-                _isFirstTime = false;
-            }
+            StartCoroutine(StopAtStation());
+            isFirstStop = false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator StopAtStation()
     {
-        BusSpawner.instance.Spawn();
-    }
+        isStopped = true;
+        speed = 0;
+        anim.SetBool("IsDriving", false);
 
-    IEnumerator BusStopped()
-    {
         yield return new WaitForSeconds(stopDelay);
-        speed = 3;
+
+        speed = 10;
         anim.SetBool("IsDriving", true);
+        isStopped = false;
     }
 
-    public void Update()
+    void Update()
     {
-        transform.position += new Vector3(-speed * 0.01f, 0,0);
+        if (!isStopped)
+        {
+            transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        BusSpawner.instance.BusDestroyed();
     }
 }

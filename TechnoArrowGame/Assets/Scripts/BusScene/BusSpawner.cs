@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,21 +5,33 @@ using UnityEngine;
 public class BusSpawner : MonoBehaviour
 {
     public static BusSpawner instance;
-    public bool IsCanSpawn;
     public List<GameObject> busses = new List<GameObject>();
+    private bool hasBus = false;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
         StartCoroutine(FirstSpawn());
     }
 
     public void Spawn()
     {
-        if(IsCanSpawn)
+        if (!hasBus)
         {
-            Instantiate(busses[Random.Range(0, 2)], transform.position, transform.rotation);
+            GameObject bus = busses[Random.Range(0, busses.Count)];
+            Instantiate(bus, transform.position, bus.transform.rotation);
+            hasBus = true;
         }
+    }
+
+    public void BusDestroyed()
+    {
+        hasBus = false;
+        Spawn();
     }
 
     IEnumerator FirstSpawn()
