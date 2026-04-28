@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class ATMManager : MonoBehaviour
         TakeCash,
         Thanks
     }
+
+    public AudioSource source;
+    public AudioClip clip;
 
     [Header("Screens")]
     [SerializeField] private GameObject screenMain;              // Приложите карту
@@ -221,16 +225,26 @@ public class ATMManager : MonoBehaviour
             return;
         }
 
+        StartCoroutine(Amount5000Routine());
+    }
+
+    private IEnumerator Amount5000Routine()
+    {
         HideAllScreens();
-
-        currentState = ATMState.TakeCash;
-
-       cashObject.SetActive(true);
-
         if (screenPutMoney != null)
             screenPutMoney.SetActive(true);
 
+        if (source != null && clip != null)
+            source.PlayOneShot(clip);
+
+        yield return new WaitForSeconds(6f);
+        currentState = ATMState.TakeCash;
+
+        if (cashObject != null)
+            cashObject.SetActive(true);
+
         Debug.Log("ATM: take cash");
+
     }
 
     public void OnCashGrabbed()
