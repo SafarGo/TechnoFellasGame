@@ -31,11 +31,15 @@ public class CheckPaidCard : MonoBehaviour
     private void Start()
     {
         if (successObject != null)
-            successObject.GetComponent<Renderer>().enabled = false;
+            successObject.SetActive(false);
+
         if (failObject != null)
-            failObject.GetComponent<Renderer>().enabled = false;
-        stepManager = GameObject.Find("StepManager").GetComponent<StepManager>();
+            failObject.SetActive(false);
+
+        if (stepManager == null)
+            stepManager = GameObject.Find("StepManager").GetComponent<StepManager>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (isCompleted)
@@ -58,43 +62,47 @@ public class CheckPaidCard : MonoBehaviour
 
         if (success)
         {
-            if (this.gameObject.tag == "67")
+            if (CompareTag("67"))
             {
                 isCompleted = true;
+
                 source.PlayOneShot(success_paid);
                 source.PlayOneShot(success_paid_1);
 
-                successObject.GetComponent<Renderer>().enabled = true;
+                successObject.SetActive(true);
 
                 yield return new WaitForSeconds(failShowTime);
 
-                successObject.GetComponent<Renderer>().enabled = false;
+                successObject.SetActive(false);
 
                 stepManager.CompleteStep(stepIndex);
             }
             else
             {
                 isCompleted = true;
+
                 source.PlayOneShot(success_paid);
-
-                successObject.GetComponent<Renderer>().enabled = true;
-
                 source.PlayOneShot(wrong_bus);
+
+                successObject.SetActive(true);
 
                 yield return new WaitForSeconds(failShowTime);
 
-                successObject.GetComponent<Renderer>().enabled = false;
-
+                successObject.SetActive(false);
             }
         }
         else
         {
             source.PlayOneShot(wrong_paid);
+
             AudioClip randomWrongClip = Random.value < 0.5f ? wrong_paid_1 : wrong_paid_2;
             source.PlayOneShot(randomWrongClip);
-            failObject.GetComponent<Renderer>().enabled = true;
+
+            failObject.SetActive(true);
+
             yield return new WaitForSeconds(failShowTime);
-            failObject.GetComponent<Renderer>().enabled = false;
+
+            failObject.SetActive(false);
         }
 
         isProcessing = false;
