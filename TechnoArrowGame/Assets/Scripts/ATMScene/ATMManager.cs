@@ -263,7 +263,7 @@ public class ATMManager : MonoBehaviour
 
         Debug.Log("ATM: thanks");
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(5f);
 
         if (stepManager != null)
             stepManager.CompleteStep(4);

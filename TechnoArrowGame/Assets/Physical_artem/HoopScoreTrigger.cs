@@ -21,7 +21,8 @@ public class HoopScoreTrigger : MonoBehaviour
     public float cooldownPerBall = 0.7f;
 
     [Header("Magnet")]
-    public float magnetStrength = 5f;
+    public float magnetStrength = 10f;
+    public float magnetRadius = 0.5f;
 
     [Header("Debug")]
     public bool debugLogs = true;
@@ -35,19 +36,27 @@ public class HoopScoreTrigger : MonoBehaviour
         UpdateScoreText();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void FixedUpdate()
     {
-        Rigidbody ballRigidbody = other.attachedRigidbody;
-        if (ballRigidbody == null)
-            ballRigidbody = other.GetComponentInParent<Rigidbody>();
-        if (ballRigidbody == null)
-            return;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, magnetRadius);
 
-        if (ballRigidbody.linearVelocity.y > -minDownwardVelocity)
-            return;
+        foreach (Collider col in colliders)
+        {
+            Rigidbody rb = col.attachedRigidbody;
+            if (rb == null)
+                rb = col.GetComponentInParent<Rigidbody>();
+            if (rb == null)
+                continue;
 
-        Vector3 directionToCenter = transform.position - ballRigidbody.position;
-        ballRigidbody.AddForce(directionToCenter * magnetStrength, ForceMode.Acceleration);
+            if (requireBallTag && !col.CompareTag(ballTag) && !rb.CompareTag(ballTag))
+                continue;
+
+            if (rb.linearVelocity.y > -minDownwardVelocity)
+                continue;
+
+            Vector3 direction = transform.position - rb.position;
+            rb.AddForce(direction * magnetStrength, ForceMode.Acceleration);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

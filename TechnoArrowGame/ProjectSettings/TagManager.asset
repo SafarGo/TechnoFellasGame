@@ -15,6 +15,9 @@ TagManager:
   - 42
   - 52
   - 67
+  - HoopSound
+  - Basketball
+  - End
   layers:
   - Default
   - TransparentFX

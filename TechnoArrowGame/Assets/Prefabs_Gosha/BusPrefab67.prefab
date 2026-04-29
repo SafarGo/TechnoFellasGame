@@ -699,7 +699,7 @@ MonoBehaviour:
   wrong_bus: {fileID: 8300000, guid: edb69ae0615267e4eac697584eba9660, type: 3}
   source: {fileID: 2873370547256504225}
   stepIndex: 2
-  successChance: 0.405
+  successChance: 0.4
   successObject: {fileID: 6688106616076644897}
   failObject: {fileID: 7391081752635322474}
   failShowTime: 1.5
@@ -1048,7 +1048,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.0039738147, y: -0.7070956, z: 0.00081457524, w: 0.70710635}
   m_LocalPosition: {x: 3.47, y: 0.12, z: 0.37}
-  m_LocalScale: {x: 0.35768437, y: 0.35768437, z: 0.35768437}
+  m_LocalScale: {x: 0.41185364, y: 0.41185364, z: 0.41185364}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1440532908420250555}
@@ -1548,7 +1548,7 @@ MonoBehaviour:
   wrong_bus: {fileID: 8300000, guid: edb69ae0615267e4eac697584eba9660, type: 3}
   source: {fileID: 4831494789440763969}
   stepIndex: 2
-  successChance: 0.405
+  successChance: 0.4
   successObject: {fileID: 1336401544354130409}
   failObject: {fileID: 7562324094605040154}
   failShowTime: 1.5
@@ -2032,7 +2032,7 @@ MonoBehaviour:
   wrong_bus: {fileID: 8300000, guid: edb69ae0615267e4eac697584eba9660, type: 3}
   source: {fileID: 7785346352316303454}
   stepIndex: 2
-  successChance: 0.405
+  successChance: 0.4
   successObject: {fileID: 5476082395954603929}
   failObject: {fileID: 2460603967336148234}
   failShowTime: 1.5
