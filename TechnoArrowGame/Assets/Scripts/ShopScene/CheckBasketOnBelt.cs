@@ -48,6 +48,8 @@ public class CheckBasketOnBelt : MonoBehaviour
 
         basketPlaced = true;
 
+        other.gameObject.SetActive(false);
+
         SnapBasket(basket);
 
         StartCoroutine(BasketRoutine());
