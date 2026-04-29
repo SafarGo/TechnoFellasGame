@@ -642,7 +642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 8400000, guid: d1ee2dff529a551418c22a7deb01a580, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3626,6 +3626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 473350727}
+  - component: {fileID: 473350728}
   m_Layer: 0
   m_Name: Hint (4)
   m_TagString: Untagged
@@ -3650,6 +3651,42 @@ Transform:
   - {fileID: 1094910549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0.287, y: -167.315, z: -0.366}
+--- !u!328 &473350728
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473350726}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 5236f02d862fd4e43b5a9ceb6cb9dffa, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: d1ee2dff529a551418c22a7deb01a580, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1001 &475204011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4495,7 +4532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 8400000, guid: 8f412126cc67729458660d8c19909708, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -5107,6 +5144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 726750878}
+  - component: {fileID: 726750879}
   m_Layer: 0
   m_Name: Hint (5)
   m_TagString: Untagged
@@ -5131,6 +5169,42 @@ Transform:
   - {fileID: 1044278425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.178, y: -227.974, z: -0.43}
+--- !u!328 &726750879
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726750877}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 952027670c4d7ce488e1455fae08fa7d, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 8f412126cc67729458660d8c19909708, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!114 &754976833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5328,6 +5402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 796758054}
+  - component: {fileID: 796758055}
   m_Layer: 0
   m_Name: Hint (3)
   m_TagString: Untagged
@@ -5352,6 +5427,42 @@ Transform:
   - {fileID: 1875741573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.416, y: 91.219, z: -0.209}
+--- !u!328 &796758055
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796758053}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 963d8db0a4f641f4380c7dca29af4309, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: e6b8a1936d1d87847881aa6a2ed24628, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 0
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
+  m_Url: 
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &803471852
 GameObject:
   m_ObjectHideFlags: 0
@@ -5860,8 +5971,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u043E\u0437\u044C\u043C\u0438 \u043A\u043E\u0440\u0437\u0438\u043D\u043A\u0443
-    \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u0443\u044E \u043A\u043B\u0430\u0432\u0438\u0448\u0443
+  m_text: "\u0427\u0442\u043E\u0431\u044B \u0432\u0437\u044F\u0442\u044C \u043A\u043E\u0440\u0437\u0438\u043D\u043A\u0443
+    \u0437\u0430\u0436\u043C\u0438 \u0431\u043E\u043A\u043E\u0432\u0443\u044E \u043A\u043B\u0430\u0432\u0438\u0448\u0443
     \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u043B\u0435\u0440\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5900,6 +6011,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -8007,8 +8119,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u043E\u0441\u0442\u0430\u0432\u044C \u043A\u043E\u0440\u0437\u0438\u043D\u043A\u0443
-    \n|\n\u02C5"
+  m_text: "\u0427\u0442\u043E\u0431\u044B \u043F\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C
+    \u043A\u043E\u0440\u0437\u0438\u043D\u0443 \u043F\u0435\u0440\u0435\u0442\u0430\u0449\u0438
+    \u0435\u0451 \u043D\u0430 \u043B\u0435\u043D\u0442\u0443"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8046,6 +8159,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -9477,7 +9591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 8400000, guid: e6b8a1936d1d87847881aa6a2ed24628, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -12854,8 +12968,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0435\u0440\u0435\u043D\u0435\u0441\u0438 5-\u0442\u044B\u0441\u044F\u0447\u043D\u0443\u044E
-    \u043A\u0443\u043F\u044E\u0440\u0443 \u0441\u044E\u0434\u0430"
+  m_text: "\u0427\u0442\u043E\u0431\u044B \u043E\u043F\u043B\u0430\u0442\u0438\u0442\u044C
+    \u0442\u043E\u0432\u0430\u0440\u044B \u043F\u0435\u0440\u0435\u0434\u0430\u0439
+    \u0434\u0435\u043D\u044C\u0433\u0438 \u043A\u0430\u0441\u0441\u0438\u0440\u0443"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12893,6 +13008,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
