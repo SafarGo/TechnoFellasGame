@@ -20,6 +20,9 @@ public class HoopScoreTrigger : MonoBehaviour
     public float minDownwardVelocity = 0.4f;
     public float cooldownPerBall = 0.7f;
 
+    [Header("Magnet")]
+    public float magnetStrength = 5f;
+
     [Header("Debug")]
     public bool debugLogs = true;
 
@@ -29,17 +32,29 @@ public class HoopScoreTrigger : MonoBehaviour
     {
         Collider triggerCollider = GetComponent<Collider>();
         triggerCollider.isTrigger = true;
-
         UpdateScoreText();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Rigidbody ballRigidbody = other.attachedRigidbody;
+        if (ballRigidbody == null)
+            ballRigidbody = other.GetComponentInParent<Rigidbody>();
+        if (ballRigidbody == null)
+            return;
+
+        if (ballRigidbody.linearVelocity.y > -minDownwardVelocity)
+            return;
+
+        Vector3 directionToCenter = transform.position - ballRigidbody.position;
+        ballRigidbody.AddForce(directionToCenter * magnetStrength, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Rigidbody ballRigidbody = other.attachedRigidbody;
-
         if (ballRigidbody == null)
             ballRigidbody = other.GetComponentInParent<Rigidbody>();
-
         if (ballRigidbody == null)
             return;
 
@@ -48,17 +63,14 @@ public class HoopScoreTrigger : MonoBehaviour
             bool hasBallTag =
                 other.CompareTag(ballTag) ||
                 ballRigidbody.CompareTag(ballTag);
-
             if (!hasBallTag)
                 return;
         }
 
-        // Засчитываем только если мяч летит вниз.
         if (ballRigidbody.linearVelocity.y > -minDownwardVelocity)
         {
             if (debugLogs)
                 Debug.Log("HoopScoreTrigger: не засчитано, мяч не летел вниз.");
-
             return;
         }
 
@@ -69,7 +81,6 @@ public class HoopScoreTrigger : MonoBehaviour
         }
 
         AddScore(pointsPerScore);
-
         nextScoreTimeByBall[ballRigidbody] = Time.time + cooldownPerBall;
 
         if (debugLogs)
